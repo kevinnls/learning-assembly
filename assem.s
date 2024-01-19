@@ -3,7 +3,7 @@
 
 _start:
 
-	// echo "Hello, world!"
+	// echo "Hello, World!"
 	mov rax, 1
 	mov rdi, 1
 	lea rsi, [hello_world]

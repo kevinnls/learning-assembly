@@ -1,7 +1,16 @@
 .phony: assemble
+TMPDIR = build
+OUTDIR = out
 
-assem: assem.o
-	gcc -o assem -nostdlib -static assem.o
+BASENAME = $(notdir $(basename $@))
 
-assem.o: assem.s
-	as -o assem.o assem.s
+%: $(OUTDIR)/%
+
+$(OUTDIR)/%: $(TMPDIR)/%.o $(OUTDIR)
+	gcc -o $(OUTDIR)/$(BASENAME) -nostdlib -static $(TMPDIR)/$(BASENAME).o
+
+$(TMPDIR)/%.o: %.s $(TMPDIR)
+	as -o $(TMPDIR)/$(BASENAME).o $(BASENAME).s
+
+$(OUTDIR) $(TMPDIR):
+	mkdir $@
